@@ -4,19 +4,11 @@ import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 // Individual reducers altogether under an alias;
+import * as reducers from "../reducers"
 
-//Make dummy reducer function here;
-//The last output of the reducer function is the state after the action is called
-//initially its just default case where state = 0;
-function counterValue(state = 0, action){
-    switch(action.type){
-        default:
-            return state;
-    }
-}
 // Construct our Redux store;
-//combine reducers takes an object, NOT A FUNCTION
-const rootReducer = combineReducers({counterValue});
+//combine reducers takes an object, NOT A FUNCTION, it takes a key and a value, can look like [can name it anything]key->counterValue:counterValue <-value
+const rootReducer = combineReducers({reducers});
 const logger = createLogger({ collapsed: true });
 const middleware = composeWithDevTools(applyMiddleware(logger));
 const store = createStore(rootReducer, middleware); // 2nd arg: middleware;
