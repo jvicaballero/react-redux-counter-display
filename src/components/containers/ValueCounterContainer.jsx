@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { ValueCounterView } from "../views";
+import { connect} from "react-redux"
+//redux fires first
+//rest of lifecycle fires off after (constructor, etc....)
 /*
 
 I want to keep my view layer as my view layer (ReactJS);
@@ -17,13 +20,40 @@ I will be about to read from (mapState) the Redux store and write to (mapDispatc
 */
 
 class ValueCounterContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    console.log("in constructor")
+    super(props);
+    console.log(this.props)
   }
 
   render() {
-    return <ValueCounterView />
+    console.log("in render")
+    return <ValueCounterView counterValue={this.props.counterValue} />
   }
 }
 
-export default ValueCounterContainer;
+/*
+Down here, I will handle reading (mapState) and writing (mapDispatch) in regards to redux store
+More specifically, I want to be able to interact with reducer function (valueCounterReducer) we wrote in the store
+
+*/
+//This will create, at this point, an object that has a key called currentValue and a value for key counterValueReducer
+function mapState(state){
+  console.log("in mapState")
+  console.log("redux store looks like this", state)
+  return{
+    counterValue: state.counterValue
+  }
+}
+
+// function mapDispatch(dispatch){
+//   return {
+
+//   }
+// }
+
+//We establish a connection(subscription) to redux store
+//Here, we will take the this.props objject of component and merge it with the object from mapState
+//this.props + {currentValue: state.counterValueReducer}
+//The above "+" sign indicates merging of two objects
+export default connect(mapState)(ValueCounterContainer);
