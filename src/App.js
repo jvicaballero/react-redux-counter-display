@@ -41,11 +41,16 @@ As a user...
 5) I can enter any number (amount) to decrease the number value by that amount
 */
 
+//Provider says: "Anything that is a child of mine can have access to the redux store"
 function App() {
   return (
     <div className="App">
       <div className="App-header">
-        <ValueCounterContainer />
+       
+
+          <ValueCounterContainer />
+   
+       
       </div>
     </div>
   );
